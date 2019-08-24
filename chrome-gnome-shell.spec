@@ -1,6 +1,6 @@
 Name:		chrome-gnome-shell
 Version:	10.1
-Release:	%mkrel 3
+Release:	1
 Summary:	Support for managing GNOME Shell Extensions through web browsers
 Group:		Graphical desktop/GNOME
 License:	GPLv3+
@@ -8,7 +8,7 @@ URL:		https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome
 Source0:	https://download.gnome.org/sources/%{name}/%{version}/%{name}-%{version}.tar.xz
 
 BuildRequires:	cmake
-BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(python)
 BuildRequires:	coreutils
 BuildRequires:	jq
 
@@ -16,9 +16,9 @@ Requires:	dbus
 Requires:	gnome-icon-theme
 Requires:	gnome-shell
 Requires:	hicolor-icon-theme
-Requires:	mozilla-filesystem
-Requires:	python3-gobject3
-Requires:	python3-requests
+#Requires:	mozilla-filesystem
+Requires:	python3dist(pygobject)
+Requires:	python-requests
 
 %description
 Browser extension for Google Chrome/Chromium, Firefox, Vivaldi, Opera (and
@@ -37,7 +37,7 @@ and the corresponding extensions repository https://extensions.gnome.org.
   %make_build
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.ChromeGnomeShell.desktop
