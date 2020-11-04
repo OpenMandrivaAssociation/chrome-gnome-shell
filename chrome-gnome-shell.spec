@@ -1,6 +1,8 @@
+%global debug_package %{nil}
+
 Name:		chrome-gnome-shell
 Version:	10.1
-Release:	2
+Release:	3
 Summary:	Support for managing GNOME Shell Extensions through web browsers
 Group:		Graphical desktop/GNOME
 License:	GPLv3+
