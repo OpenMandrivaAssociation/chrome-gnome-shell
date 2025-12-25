@@ -1,15 +1,17 @@
 %global debug_package %{nil}
 
 Name:		chrome-gnome-shell
-Version:	10.1
-Release:	6
+Version:	12.1
+Release:	1
 Summary:	Support for managing GNOME Shell Extensions through web browsers
 Group:		Graphical desktop/GNOME
 License:	GPLv3+
 URL:		https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome
-Source0:	https://download.gnome.org/sources/%{name}/%{version}/%{name}-%{version}.tar.xz
+#Source0:	https://download.gnome.org/sources/%{name}/%{version}/%{name}-%{version}.tar.xz
+Source0:  https://gitlab.gnome.org/GNOME/gnome-browser-extension/-/archive/v%{version}/gnome-browser-extension-v%{version}.tar.bz2
 
-BuildRequires:	cmake
+BuildRequires:	meson
+BuildRequires:  gettext
 BuildRequires:	pkgconfig(python)
 BuildRequires:	coreutils
 BuildRequires:	jq
@@ -29,29 +31,18 @@ and native host messaging connector that provides integration with GNOME Shell
 and the corresponding extensions repository https://extensions.gnome.org.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
-  %cmake -DBUILD_EXTENSION=OFF \
-         -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-         -DPython_ADDITIONAL_VERSIONS=3 \
-         ..
-  %make_build
+%meson
+
+%meson_build
 
 %install
-%make_install -C build
+%meson_install
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.ChromeGnomeShell.desktop
 
 %files
 %license LICENSE
-%{_sysconfdir}/chromium/
-%{_sysconfdir}/opt/chrome/
-%{_bindir}/chrome-gnome-shell
-%{_libdir}/mozilla/native-messaging-hosts/
-%{python3_sitelib}/chrome_gnome_shell-*.egg-info
-%{_datadir}/applications/org.gnome.ChromeGnomeShell.desktop
-%{_datadir}/dbus-1/services/org.gnome.ChromeGnomeShell.service
-%{_datadir}/icons/gnome/*/apps/org.gnome.ChromeGnomeShell.png
 
