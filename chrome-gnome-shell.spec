@@ -15,6 +15,7 @@ BuildRequires:  gettext
 BuildRequires:	pkgconfig(python)
 BuildRequires:	coreutils
 BuildRequires:	jq
+BuildRequires:  7zip
 
 Requires:	dbus
 Requires:	gnome-icon-theme
