@@ -31,7 +31,7 @@ and native host messaging connector that provides integration with GNOME Shell
 and the corresponding extensions repository https://extensions.gnome.org.
 
 %prep
-%autosetup -p1
+%autosetup -n gnome-browser-extension-v%{version} -p1
 
 %build
 %meson
